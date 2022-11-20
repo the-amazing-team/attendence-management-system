@@ -1,7 +1,11 @@
 const express = require("express");
-const { markStudentPresentToday } = require("./database");
+const { addNewStudent } = require("./database");
 
 (async function () {
-  const student = await markStudentPresentToday("something");
+  const student = await addNewStudent({
+    name: "rahul",
+    password: "something",
+    usnID: "something",
+  });
   console.log(student);
 })();

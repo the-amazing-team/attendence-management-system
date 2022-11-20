@@ -16,17 +16,6 @@ mongoose.connect(
   }
 );
 
-async function addNewStudent({ name, usnID, password }) {
-  const newStudent = new Student({
-    name: name,
-    usnID: usnID,
-    password: password,
-  });
-  const student = await newStudent.save();
-  console.log(`[+] ${name} has been added to the database.`);
-  return student;
-}
-
 function findStudent(usnID) {
   return new Promise((resolve, reject) => {
     Student.findOne({ usnID: usnID }, (err, doc) => {
@@ -34,6 +23,25 @@ function findStudent(usnID) {
       resolve(doc);
     });
   });
+}
+
+function isStudentExist(usnID) {
+  if (!findStudent(usnID)) return false;
+  return true;
+}
+
+async function addNewStudent({ name, usnID, password }) {
+  if (isStudentExist(usnID))
+    return new Error("Student with this USN ID already exists");
+  const newStudent = new Student({
+    name: name,
+    usnID: usnID,
+    password: password,
+    isOuting: false,
+  });
+  const student = await newStudent.save();
+  console.log(`[+] ${name} has been added to the database.`);
+  return student;
 }
 
 async function isStudentPresentToday(usnID) {
@@ -53,7 +61,8 @@ async function isStudentPresentToday(usnID) {
 }
 
 async function markStudentPresentToday(usnID) {
-  if (isStudentPresentToday(usnID)) return false;
+  if (isStudentPresentToday(usnID))
+    return new Error("Student is already present");
   const today = new Date();
   const student = await Student.updateOne(
     { usnID: usnID },

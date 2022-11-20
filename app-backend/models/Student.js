@@ -4,6 +4,7 @@ const StudentSchema = new mongoose.Schema({
   name: String,
   usnID: String,
   password: String,
+  isOuting: Boolean,
   presentDates: Array,
 });
 
