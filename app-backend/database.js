@@ -29,7 +29,7 @@ async function addNewStudent({ name, usnID, password }) {
 
 function findStudent(usnID) {
   return new Promise((resolve, reject) => {
-    Student.findOne({ usnID: "something" }, (err, doc) => {
+    Student.findOne({ usnID: usnID }, (err, doc) => {
       if (err) reject(err);
       resolve(doc);
     });
