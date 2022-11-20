@@ -5,6 +5,7 @@ const {
   isStudentPresentToday,
   markStudentPresentToday,
   getOutingList,
+  resetOutingForAll,
 } = require("./database");
 
 const app = express();
@@ -67,6 +68,14 @@ app.get("/get_outing_list", async (req, res) => {
     });
   });
   res.send(outingList);
+});
+
+app.get("/reset_outing_for_all", async (req, res) => {
+  await resetOutingForAll();
+  res.send({
+    status: "done",
+    message: "Outing is reset for all successfully!",
+  });
 });
 
 app.listen(PORT, () => {
