@@ -1,10 +1,9 @@
-function getTodayDate() {
-  const today = new Date();
-  const date = ("0" + today.getDate()).slice(-2);
-  const month = ("0" + (today.getMonth() + 1)).slice(-2);
-  const year = today.getFullYear();
+function convertDateInstanceToNormalDate(dateInstance) {
+  const date = ("0" + dateInstance.getDate()).slice(-2);
+  const month = ("0" + (dateInstance.getMonth() + 1)).slice(-2);
+  const year = dateInstance.getFullYear();
   const stringDate = year + "-" + month + "-" + date;
   return stringDate;
 }
 
-module.exports = { getTodayDate };
+module.exports = { convertDateInstanceToNormalDate };

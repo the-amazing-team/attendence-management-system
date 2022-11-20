@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Student = require("./models/Student");
+const { convertDateInstanceToNormalDate } = require("./utils");
 require("dotenv").config();
 
 const MONGODB_CONNECTION = process.env.MONGODB_CONNECTION;
@@ -35,10 +36,34 @@ function findStudent(usnID) {
   });
 }
 
-async function markStudentPresentToday(usnID) {
+async function isStudentPresentToday(usnID) {
   const today = new Date();
+  const simpleTodayDate = convertDateInstanceToNormalDate(today);
   const student = await findStudent(usnID);
-  console.log(student);
+  let isTodayFound = false;
+  student.presentDates.forEach((date) => {
+    const dateInstance = new Date(date);
+    const simpleDate = convertDateInstanceToNormalDate(dateInstance);
+    if (simpleDate == simpleTodayDate) {
+      isTodayFound = true;
+      return false;
+    }
+  });
+  return isTodayFound;
+}
+
+async function markStudentPresentToday(usnID) {
+  if (isStudentPresentToday(usnID)) return false;
+  const today = new Date();
+  const student = await Student.updateOne(
+    { usnID: usnID },
+    {
+      $push: {
+        presentDates: today,
+      },
+    }
+  );
+  return student;
 }
 
 module.exports = { addNewStudent, markStudentPresentToday };
