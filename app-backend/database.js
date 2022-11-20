@@ -12,7 +12,7 @@ mongoose.connect(
     useUnifiedTopology: true,
   },
   () => {
-    console.log("[+] MongoDB Conencted!");
+    console.log("[+] MongoDB Connected!");
   }
 );
 
@@ -25,8 +25,9 @@ function findStudent(usnID) {
   });
 }
 
-function isStudentExist(usnID) {
-  if (!findStudent(usnID)) return false;
+async function isStudentExist(usnID) {
+  const matches = await findStudent(usnID);
+  if (!matches) return false;
   return true;
 }
 
@@ -111,4 +112,5 @@ module.exports = {
   applyForOuting,
   resetOuting,
   resetOutingForAll,
+  isStudentExist,
 };
