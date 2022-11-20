@@ -26,9 +26,19 @@ async function addNewStudent({ name, usnID, password }) {
   return student;
 }
 
+function findStudent(usnID) {
+  return new Promise((resolve, reject) => {
+    Student.findOne({ usnID: "something" }, (err, doc) => {
+      if (err) reject(err);
+      resolve(doc);
+    });
+  });
+}
+
 async function markStudentPresentToday(usnID) {
   const today = new Date();
-  console.log(today);
+  const student = await findStudent(usnID);
+  console.log(student);
 }
 
 module.exports = { addNewStudent, markStudentPresentToday };
