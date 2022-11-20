@@ -115,6 +115,13 @@ async function resetOutingForAll() {
   return result;
 }
 
+async function getOutingList() {
+  const result = await Student.find({
+    isOuting: true,
+  });
+  return result;
+}
+
 module.exports = {
   addNewStudent,
   markStudentPresentToday,
@@ -123,4 +130,5 @@ module.exports = {
   resetOutingForAll,
   isStudentExist,
   isStudentPresentToday,
+  getOutingList,
 };

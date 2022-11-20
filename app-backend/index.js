@@ -4,6 +4,7 @@ const {
   isStudentExist,
   isStudentPresentToday,
   markStudentPresentToday,
+  getOutingList,
 } = require("./database");
 
 const app = express();
@@ -54,6 +55,18 @@ app.get("/mark_present", async (req, res) => {
     status: "marked_present",
     message: "Student has been marked present today!",
   });
+});
+
+app.get("/get_outing_list", async (req, res) => {
+  const outingListDocuments = await getOutingList();
+  const outingList = [];
+  outingListDocuments.forEach((document) => {
+    outingList.push({
+      name: document.name,
+      usnID: document.usnID,
+    });
+  });
+  res.send(outingList);
 });
 
 app.listen(PORT, () => {
