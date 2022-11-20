@@ -1,5 +1,10 @@
 const express = require("express");
-const { addNewStudent, isStudentExist } = require("./database");
+const {
+  addNewStudent,
+  isStudentExist,
+  isStudentPresentToday,
+  markStudentPresentToday,
+} = require("./database");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -31,6 +36,23 @@ app.get("/register_new_student", async (req, res) => {
   res.send({
     status: "created",
     message: "Account has been created!",
+  });
+});
+
+app.get("/mark_present", async (req, res) => {
+  const usnID = req.query.usnID;
+  const isAlreadyPresent = await isStudentPresentToday(usnID);
+  if (isAlreadyPresent) {
+    res.send({
+      status: "already_present",
+      message: "Student is already marked present today.",
+    });
+    return false;
+  }
+  await markStudentPresentToday(usnID);
+  res.send({
+    status: "marked_present",
+    message: "Student has been marked present today!",
   });
 });
 
