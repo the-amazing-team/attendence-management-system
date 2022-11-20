@@ -1,11 +1,7 @@
 const express = require("express");
-const { addNewStudent } = require("./database");
+const { resetOutingForAll } = require("./database");
 
 (async function () {
-  const student = await addNewStudent({
-    name: "rahul",
-    password: "something",
-    usnID: "something",
-  });
+  const student = await resetOutingForAll();
   console.log(student);
 })();

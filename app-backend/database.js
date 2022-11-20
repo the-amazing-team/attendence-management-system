@@ -64,7 +64,7 @@ async function markStudentPresentToday(usnID) {
   if (isStudentPresentToday(usnID))
     return new Error("Student is already present");
   const today = new Date();
-  const student = await Student.updateOne(
+  const result = await Student.updateOne(
     { usnID: usnID },
     {
       $push: {
@@ -72,7 +72,43 @@ async function markStudentPresentToday(usnID) {
       },
     }
   );
-  return student;
+  return result;
 }
 
-module.exports = { addNewStudent, markStudentPresentToday };
+async function applyForOuting(usnID) {
+  const result = await Student.updateOne(
+    { usnID: usnID },
+    {
+      isOuting: true,
+    }
+  );
+  return result;
+}
+
+async function resetOuting(usnID) {
+  const result = await Student.updateOne(
+    { usnID: usnID },
+    {
+      isOuting: false,
+    }
+  );
+  return result;
+}
+
+async function resetOutingForAll() {
+  const result = await Student.updateOne(
+    {},
+    {
+      isOuting: false,
+    }
+  );
+  return result;
+}
+
+module.exports = {
+  addNewStudent,
+  markStudentPresentToday,
+  applyForOuting,
+  resetOuting,
+  resetOutingForAll,
+};
