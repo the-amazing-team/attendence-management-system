@@ -1,10 +1,10 @@
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
-import ExploreContainer from '../components/ExploreContainer';
+import AdminPanel from '../components/AdminPanel';
 import './Home.css';
 import { Geolocation} from '@capacitor/geolocation';
 import { useState, useEffect } from 'react';
 
-const Home: React.FC = () => {
+const AdminPanel: React.FC = () => {
   const [longitude, setLongitude] = useState(0);
   const [latitude, setLatitude] = useState(0);
 
@@ -23,22 +23,19 @@ const Home: React.FC = () => {
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>{latitude}</IonTitle>
-          <div className="links" slot="end">
-            <a className="link">Log Out</a>
-          </div>
+          <IonTitle>Admin Panel</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
         <IonHeader collapse="condense">
           <IonToolbar>
-            <IonTitle size="large">{longitude}</IonTitle>
+            <IonTitle size="large">Admin Panel</IonTitle>
           </IonToolbar>
         </IonHeader>
-        <ExploreContainer />
+        <AdminContainer />
       </IonContent>
     </IonPage>
   );
 };
 
-export default Home;
+export default AdminPanel;

@@ -1,10 +1,10 @@
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
-import ExploreContainer from '../components/ExploreContainer';
+import LoginContainer from '../components/LoginContainer';
 import './Home.css';
 import { Geolocation} from '@capacitor/geolocation';
 import { useState, useEffect } from 'react';
 
-const Home: React.FC = () => {
+const Login: React.FC = () => {
   const [longitude, setLongitude] = useState(0);
   const [latitude, setLatitude] = useState(0);
 
@@ -25,7 +25,7 @@ const Home: React.FC = () => {
         <IonToolbar>
           <IonTitle>{latitude}</IonTitle>
           <div className="links" slot="end">
-            <a className="link">Log Out</a>
+            <a className="link">Admin?</a>
           </div>
         </IonToolbar>
       </IonHeader>
@@ -35,10 +35,10 @@ const Home: React.FC = () => {
             <IonTitle size="large">{longitude}</IonTitle>
           </IonToolbar>
         </IonHeader>
-        <ExploreContainer />
+        <LoginContainer />
       </IonContent>
     </IonPage>
   );
 };
 
-export default Home;
+export default Login;
