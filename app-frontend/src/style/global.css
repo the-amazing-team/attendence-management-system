@@ -1,0 +1,58 @@
+.container {
+  text-align: center;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container strong {
+  font-size: 20px;
+  line-height: 26px;
+}
+
+.container p {
+  font-size: 16px;
+  line-height: 22px;
+  color: #8c8c8c;
+  margin: 0;
+}
+
+.container a {
+  text-decoration: none;
+}
+
+.header {
+  font-size: 2.5em;
+  font-weight: 700;
+}
+
+ion-card {
+  margin-top: 20px;
+}
+
+ion-item {
+  --background: #303030;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  height: 45px;
+}
+
+ion-button {
+  --background: #3043ED;
+  height: 45px;
+}
+
+.link {
+  color: white;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+.link:hover {
+  text-decoration: underline;
+}

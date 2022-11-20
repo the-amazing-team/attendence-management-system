@@ -1,6 +1,5 @@
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
 import AdminContainer from '../components/AdminContainer';
-import './Home.css';
 import { Geolocation} from '@capacitor/geolocation';
 import { useState, useEffect } from 'react';
 

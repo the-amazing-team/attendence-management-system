@@ -1,29 +1,28 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
-import LoginContainer from '../components/LoginContainer';
-import './Home.css';
-import { Geolocation} from '@capacitor/geolocation';
-import { useState, useEffect } from 'react';
+import {
+  IonContent,
+  IonHeader,
+  IonPage,
+  IonTitle,
+  IonToolbar,
+  IonButton,
+  IonCard,
+  IonCardContent,
+  IonLabel,
+  IonItem,
+  IonInput,
+} from "@ionic/react";
+import { useState } from "react";
+import "../style/global.css";
 
 const Login: React.FC = () => {
-  const [longitude, setLongitude] = useState(0);
-  const [latitude, setLatitude] = useState(0);
-
-  useEffect(() => {
-    const getLocation = async () => {
-      const position = await Geolocation.getCurrentPosition();
-      const long = position.coords.longitude;
-      const lat = position.coords.latitude;
-      setLongitude(long);
-      setLatitude(lat);
-    }
-    getLocation();
-  })
+  const [USNNumber, setUSNNumber] = useState("");
+  const [password, setPassword] = useState("");
 
   return (
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>{latitude}</IonTitle>
+          <IonTitle>CIT</IonTitle>
           <div className="links" slot="end">
             <a className="link">Admin?</a>
           </div>
@@ -32,10 +31,38 @@ const Login: React.FC = () => {
       <IonContent fullscreen>
         <IonHeader collapse="condense">
           <IonToolbar>
-            <IonTitle size="large">{longitude}</IonTitle>
+            <IonTitle size="large"></IonTitle>
           </IonToolbar>
         </IonHeader>
-        <LoginContainer />
+        <div className="container">
+          <div className="form">
+            <IonLabel className="header">Login Portal</IonLabel>
+            <IonCard>
+              <IonCardContent>
+                <IonItem>
+                  <IonInput
+                    placeholder="USN Number"
+                    value={USNNumber}
+                    onChange={(e: any) => setUSNNumber(e.target.value)}
+                  ></IonInput>
+                </IonItem>
+                <IonItem>
+                  <IonInput
+                    type="password"
+                    placeholder="Password"
+                    value={password}
+                    onIonChange={(e: any) => setPassword(e.target.value)}
+                  ></IonInput>
+                </IonItem>
+                <IonButton expand="block">Login</IonButton>
+              </IonCardContent>
+            </IonCard>
+            <div className="links">
+              <a className="link">Contact Us</a>
+              <a className="link">Forgot My Password?</a>
+            </div>
+          </div>
+        </div>
       </IonContent>
     </IonPage>
   );

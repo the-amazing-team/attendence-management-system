@@ -1,6 +1,5 @@
 import './LoginContainer.css';
 import { IonButton, IonCard, IonCardContent, IonLabel, IonItem, IonInput } from '@ionic/react';
-import AdminPanel from '../pages/AdminPanel';
 
 interface ContainerProps { }
 

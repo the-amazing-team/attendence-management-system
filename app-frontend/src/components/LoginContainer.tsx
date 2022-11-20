@@ -1,9 +1,7 @@
 import './LoginContainer.css';
 import { IonButton, IonCard, IonCardContent, IonLabel, IonItem, IonInput } from '@ionic/react';
 
-interface ContainerProps { }
-
-const ExploreContainer: React.FC<ContainerProps> = () => {
+const ExploreContainer: React.FC = () => {
   return (
     <div className="container">
       <div className="form">
