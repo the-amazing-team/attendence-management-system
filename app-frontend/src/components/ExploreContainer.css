@@ -5,6 +5,10 @@
   right: 0;
   top: 50%;
   transform: translateY(-50%);
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .container strong {
@@ -21,4 +25,39 @@
 
 .container a {
   text-decoration: none;
+}
+
+ion-card-header.ios {
+  display: flex;
+  flex-flow: column-reverse;
+}
+
+ion-card {
+  background-color: #202020;
+  margin-bottom: 20px;
+  border-radius: 10px;
+}
+
+ion-card-title {
+  font-size: 2.5em;
+}
+
+.subheader {
+  font-size: 1.2em;
+}
+
+.present-matrix {
+  margin-top: 20px;
+}
+
+ion-list {
+  border-radius: 10px;
+}
+
+ion-item {
+  text-align: center;
+}
+
+#people-list {
+  padding-bottom: 0px;
 }
