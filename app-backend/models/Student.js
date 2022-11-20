@@ -5,6 +5,7 @@ const StudentSchema = new mongoose.Schema({
   usnID: String,
   password: String,
   isOuting: Boolean,
+  sessionID: String,
   presentDates: Array,
 });
 
