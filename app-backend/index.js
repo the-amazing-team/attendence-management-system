@@ -6,6 +6,7 @@ const {
   markStudentPresentToday,
   getOutingList,
   resetOutingForAll,
+  findStudent,
 } = require("./database");
 
 const app = express();
@@ -76,6 +77,12 @@ app.get("/reset_outing_for_all", async (req, res) => {
     status: "done",
     message: "Outing is reset for all successfully!",
   });
+});
+
+app.get("/get_student_detail", async (req, res) => {
+  const usnID = req.query.usnID;
+  const student = await findStudent(usnID);
+  res.send(student);
 });
 
 app.listen(PORT, () => {

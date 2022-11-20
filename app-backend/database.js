@@ -131,4 +131,5 @@ module.exports = {
   isStudentExist,
   isStudentPresentToday,
   getOutingList,
+  findStudent,
 };
