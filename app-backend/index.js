@@ -7,7 +7,10 @@ const {
   getOutingList,
   resetOutingForAll,
   findStudent,
+  setSessionID,
+  resetSessionID,
 } = require("./database");
+const { generateUUID } = require("./utils");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -83,6 +86,53 @@ app.get("/get_student_detail", async (req, res) => {
   const usnID = req.query.usnID;
   const student = await findStudent(usnID);
   res.send(student);
+});
+
+app.get("/login", async (req, res) => {
+  const usnID = req.query.usnID;
+  const password = req.query.password;
+  const student = await findStudent(usnID);
+  const actualPassword = student.password;
+  // if (student.sessionID !== null) {
+  //   res.send({
+  //     status: "session_already_open",
+  //     message: "Please log out from your previous device",
+  //   });
+  //   return false;
+  // }
+  if (password !== actualPassword) {
+    res.send({
+      status: "unauthorized",
+      message: "Either usnID or password is wrong",
+    });
+    return false;
+  }
+  const newSessionId = generateUUID();
+  await setSessionID(usnID, newSessionId);
+  res.send({
+    status: "authorized",
+    message: "You have been authorized",
+    sessionID: newSessionId,
+  });
+});
+
+app.get("/logout", async (req, res) => {
+  const usnID = req.query.usnID;
+  const sessionID = req.query.sessionID;
+  const student = await findStudent(usnID);
+  const actualSessionId = student.sessionID;
+  if (sessionID != actualSessionId) {
+    res.send({
+      status: "unauthorized",
+      message: "You are unauthorized to logout.",
+    });
+    return false;
+  }
+  await resetSessionID(usnID);
+  res.send({
+    status: "logout",
+    message: "You have been logged out.",
+  });
 });
 
 app.listen(PORT, () => {

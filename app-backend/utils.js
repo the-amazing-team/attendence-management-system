@@ -6,4 +6,8 @@ function convertDateInstanceToNormalDate(dateInstance) {
   return stringDate;
 }
 
-module.exports = { convertDateInstanceToNormalDate };
+function generateUUID() {
+  return Date.now();
+}
+
+module.exports = { convertDateInstanceToNormalDate, generateUUID };

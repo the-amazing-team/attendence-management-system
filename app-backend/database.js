@@ -39,6 +39,7 @@ async function addNewStudent({ name, usnID, password }) {
     usnID: usnID,
     password: password,
     isOuting: false,
+    sessionID: null,
   });
   const student = await newStudent.save();
   console.log(`[+] ${name} has been added to the database.`);
@@ -122,6 +123,29 @@ async function getOutingList() {
   return result;
 }
 
+async function getSessionID(usnID) {
+  const student = await findStudent(usnID);
+  const sessionID = student.sessionID;
+  return sessionID;
+}
+
+async function setSessionID(usnID, value) {
+  const result = await Student.updateOne(
+    {
+      usnID: usnID,
+    },
+    {
+      sessionID: value,
+    }
+  );
+  return result;
+}
+
+async function resetSessionID(usnID) {
+  const result = await setSessionID(usnID, null);
+  return result;
+}
+
 module.exports = {
   addNewStudent,
   markStudentPresentToday,
@@ -132,4 +156,7 @@ module.exports = {
   isStudentPresentToday,
   getOutingList,
   findStudent,
+  setSessionID,
+  resetSessionID,
+  getSessionID,
 };
