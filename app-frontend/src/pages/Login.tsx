@@ -13,10 +13,18 @@ import {
 } from "@ionic/react";
 import { useState } from "react";
 import "../style/global.css";
+import axios from "../axios";
 
 const Login: React.FC = () => {
   const [USNNumber, setUSNNumber] = useState("");
   const [password, setPassword] = useState("");
+
+  const loginHandler = async () => {
+    const response = await axios.get(
+      "/login?usnID=" + USNNumber + "&password=" + password
+    );
+    console.log(response.data);
+  };
 
   return (
     <IonPage>
@@ -43,7 +51,7 @@ const Login: React.FC = () => {
                   <IonInput
                     placeholder="USN Number"
                     value={USNNumber}
-                    onChange={(e: any) => setUSNNumber(e.target.value)}
+                    onIonChange={(e: any) => setUSNNumber(e.target.value)}
                   ></IonInput>
                 </IonItem>
                 <IonItem>
@@ -54,7 +62,7 @@ const Login: React.FC = () => {
                     onIonChange={(e: any) => setPassword(e.target.value)}
                   ></IonInput>
                 </IonItem>
-                <IonButton expand="block">Login</IonButton>
+                <IonButton expand="block" onClick={loginHandler}>Login</IonButton>
               </IonCardContent>
             </IonCard>
             <div className="links">
