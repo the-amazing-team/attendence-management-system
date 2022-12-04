@@ -15,15 +15,19 @@ import { useState } from "react";
 import "../style/global.css";
 import axios from "../axios";
 
+async function getSessionID(usnID: string, password: string) {
+  const response = await axios.get("/login?usnID=" + usnID + "&password=" + password);
+  return response.data.sessionID;
+}
+
 const Login: React.FC = () => {
   const [USNNumber, setUSNNumber] = useState("");
   const [password, setPassword] = useState("");
 
   const loginHandler = async () => {
-    const response = await axios.get(
-      "/login"
-    );
-    console.log(response.data);
+    const sessionID = await getSessionID(USNNumber, password);
+    console.log(sessionID);
+    // console.log(response.data);
   };
 
   return (
