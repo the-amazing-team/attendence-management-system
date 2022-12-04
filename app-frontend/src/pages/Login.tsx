@@ -20,13 +20,19 @@ async function getSessionID(usnID: string, password: string) {
   return response.data.sessionID;
 }
 
+async function getUsnIDFromSessionID(sessionID: string) {
+  const response = await axios.get("/get_usn_id_from_session_id?sessionID=" + sessionID);
+  return response.data.usnID;
+}
+
 const Login: React.FC = () => {
   const [USNNumber, setUSNNumber] = useState("");
   const [password, setPassword] = useState("");
 
   const loginHandler = async () => {
     const sessionID = await getSessionID(USNNumber, password);
-    console.log(sessionID);
+    const usnID = await getUsnIDFromSessionID(sessionID);
+    console.log(usnID);
     // console.log(response.data);
   };
 
