@@ -14,6 +14,8 @@ import {
 import { useState } from "react";
 import "../style/global.css";
 import axios from "../axios";
+// import useStorage from "../../../app-frontend/hooks";
+import useStorage from "../hooks/useStorage";
 
 async function getSessionID(usnID: string, password: string) {
   const response = await axios.get("/login?usnID=" + usnID + "&password=" + password);
@@ -25,15 +27,23 @@ async function getUsnIDFromSessionID(sessionID: string) {
   return response.data.usnID;
 }
 
+async function getStoredSessionID
+
 const Login: React.FC = () => {
   const [USNNumber, setUSNNumber] = useState("");
   const [password, setPassword] = useState("");
 
+  const store = useStorage();
+
   const loginHandler = async () => {
-    const sessionID = await getSessionID(USNNumber, password);
-    const usnID = await getUsnIDFromSessionID(sessionID);
-    console.log(usnID);
+    // const sessionID = await getSessionID(USNNumber, password);
+    // const usnID = await getUsnIDFromSessionID(sessionID);
+    // console.log(usnID);
     // console.log(response.data);
+
+    // await store?.set("sessionID", 1123);
+    const sessionID = await store?.get("sessionID");
+    console.log(sessionID);
   };
 
   return (
