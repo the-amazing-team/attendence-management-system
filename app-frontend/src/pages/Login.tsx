@@ -21,7 +21,7 @@ const Login: React.FC = () => {
 
   const loginHandler = async () => {
     const response = await axios.get(
-      "/login?usnID=" + USNNumber + "&password=" + password
+      "/login"
     );
     console.log(response.data);
   };
